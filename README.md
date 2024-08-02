@@ -16,6 +16,12 @@ An [Ulauncher](https://ulauncher.io) extension to open Firefox with an user prof
 4. Paste the url: `https://github.com/kleber-swf/ulauncher-firefox-profiles`
 5. Press "Add"
 
+## Dependencies
+
+You need to create the profiles first inside the `about:profiles` page in Firefox. Just enter this url in the address bar and manage your profiles.
+
+Here is a more detailed version on the [Firefox official support page](https://support.mozilla.org/en-US/kb/profile-manager-create-remove-switch-firefox-profiles)
+
 ## Configuration
 
 -  **Firefox Profiles Keyword**: The keyword to activate the extension. Default: `fp`.
