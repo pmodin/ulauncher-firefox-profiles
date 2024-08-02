@@ -1,0 +1,33 @@
+{
+  "required_api_version": "^2.0.0",
+  "name": "Firefox Profiles",
+  "description": "Launch Firefox with an user profile",
+  "developer_name": "Kleber Silva <kleber.swf@gmail.com>",
+  "icon": "images/icon.png",
+  "options": {
+    "query_debounce": 0.1
+  },
+  "preferences": [
+    {
+      "id": "keyword",
+      "type": "keyword",
+      "name": "Firefox Profile",
+      "description": "The keyword to activate Firefox profile selection",
+      "default_value": "fp"
+    },
+    {
+      "id": "firefox_folder",
+      "type": "input",
+      "name": "Firefox Configuration Folder",
+      "description": "Select the Firefox profiles folder. Find it inside `about:profiles` page.",
+      "default_value": "~/snap/firefox/common/.mozilla/firefox/"
+    },
+    {
+      "id": "firefox_cmd",
+      "type": "input",
+      "name": "Firefox Executable",
+      "description": "The command line to start Firefox. Usually `firefox`.",
+      "default_value": "firefox"
+    }
+  ]
+}
