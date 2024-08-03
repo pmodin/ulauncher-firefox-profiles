@@ -1,4 +1,5 @@
 import os
+import re
 import subprocess
 import configparser
 from ulauncher.api.client.Extension import Extension
@@ -12,7 +13,8 @@ from ulauncher.api.shared.action.ExtensionCustomAction import ExtensionCustomAct
 def get_profiles(config_folder):
     config = configparser.ConfigParser()
     config.read(os.path.join(config_folder, 'profiles.ini'))
-    return [config[p]['Name'] for p in config.sections() if p != 'General']
+    regex = r'^Profile.*$'
+    return [config[p]['Name'] for p in config.sections() if 'Name' in config[p] and re.search(regex, p, re.IGNORECASE)]
 
 
 class DemoExtension(Extension):
