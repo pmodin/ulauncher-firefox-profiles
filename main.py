@@ -25,11 +25,18 @@ class DemoExtension(Extension):
 
 
 class KeywordQueryEventListener(EventListener):
-    def on_event(self, event, extension):
-        config_folder = os.path.expanduser(extension.preferences['firefox_folder'])
-        profiles = get_profiles(config_folder)
+    def __init__(self):
+        super(KeywordQueryEventListener, self).__init__()
+        self.profiles = []
 
+    def on_event(self, event, extension):
         query = event.get_argument()
+        if not query or len(self.profiles) == 0:
+            config_folder = os.path.expanduser(extension.preferences['firefox_folder'])
+            self.profiles = get_profiles(config_folder)
+        
+        profiles = self.profiles.copy()
+
         if query:
             query = query.strip().lower()
             profiles = [p for p in profiles if query in p.lower()]
