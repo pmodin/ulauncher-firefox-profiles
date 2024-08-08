@@ -41,6 +41,13 @@ class KeywordQueryEventListener(EventListener):
                 name=profile,
                 on_enter=ExtensionCustomAction(profile, keep_app_open=False)
             ))
+
+        entries.append(ExtensionResultItem(
+            icon='images/icon.png',
+            name='Profile Management',
+            description='Start Firefox profile management tool',
+            on_enter=ExtensionCustomAction('', keep_app_open=False)
+        ))
         return RenderResultListAction(entries)
 
 
