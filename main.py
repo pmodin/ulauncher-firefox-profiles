@@ -10,13 +10,6 @@ from ulauncher.api.shared.action.RenderResultListAction import RenderResultListA
 from ulauncher.api.shared.action.ExtensionCustomAction import ExtensionCustomAction
 
 
-def get_profiles(config_folder):
-    config = configparser.ConfigParser()
-    config.read(os.path.join(config_folder, 'profiles.ini'))
-    regex = r'^Profile.*$'
-    return [config[p]['Name'] for p in config.sections() if 'Name' in config[p] and re.search(regex, p, re.IGNORECASE)]
-
-
 class DemoExtension(Extension):
     def __init__(self):
         super(DemoExtension, self).__init__()
@@ -29,11 +22,19 @@ class KeywordQueryEventListener(EventListener):
         super(KeywordQueryEventListener, self).__init__()
         self.profiles = []
 
+    def get_profiles(self, config_folder):
+        config = configparser.ConfigParser()
+        config.read(os.path.join(config_folder, 'profiles.ini'))
+        regex = r'^Profile.*$'
+        return [config[p]['Name'] for p in config.sections() if 'Name' in config[p] and re.search(regex, p, re.IGNORECASE)]
+
+
     def on_event(self, event, extension):
         query = event.get_argument()
+
         if not query or len(self.profiles) == 0:
             config_folder = os.path.expanduser(extension.preferences['firefox_folder'])
-            self.profiles = get_profiles(config_folder)
+            self.profiles = self.get_profiles(config_folder)
         
         profiles = self.profiles.copy()
 
@@ -55,6 +56,7 @@ class KeywordQueryEventListener(EventListener):
             description='Start Firefox profile management tool',
             on_enter=ExtensionCustomAction('', keep_app_open=False)
         ))
+        
         return RenderResultListAction(entries)
 
 
